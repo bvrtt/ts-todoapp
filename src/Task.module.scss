@@ -1,0 +1,123 @@
+@use "variables";
+
+.task__wrapper {
+  width: 100%;
+  padding: 1rem;
+  border: 0.1rem rgb(240, 239, 239) solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  background-color: white;
+  border-radius: 0.2rem;
+  box-shadow: 0px 0px 40px -26px rgba(210, 210, 214, 1);
+
+  .label__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 0 1rem 0.2rem;
+    width: 90%;
+
+    .checkbox {
+      margin-right: 0.5rem;
+      height: 1rem;
+      width: 1rem;
+    }
+
+    .task__label {
+      font-size: 1rem;
+      color: black;
+      font-weight: bold;
+      display: inline-block;
+      width: 100%;
+      word-wrap: break-word;
+    }
+
+    .completed {
+      color: variables.$grey;
+      text-decoration: line-through;
+    }
+  }
+
+  .time {
+    color: variables.$grey;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    .clock__icon {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .icons__wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-left: -0.5rem;
+
+    .icon__btn {
+      background-color: white;
+      padding: 0.5rem;
+      border-radius: 0.2rem;
+      border: 0;
+      outline: thick;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        background-color: variables.$grey;
+        .pen__icon {
+          svg {
+            path {
+              stroke: #2986cc;
+            }
+          }
+        }
+
+        .trashcan__icon {
+          svg {
+            fill: #d23a2f;
+          }
+        }
+      }
+
+      &:nth-child(1) {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+.icon {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+@media screen and (min-width: variables.$small-screen) {
+  .task__wrapper {
+    padding: 2rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .time {
+      margin-bottom: 0;
+    }
+
+    .label__wrapper {
+      width: 30%;
+      margin-bottom: 0;
+      margin-right: 0.7rem;
+
+      .checkbox {
+        margin-right: 1rem;
+      }
+    }
+
+    .icons__wrapper {
+      margin-left: 0;
+    }
+  }
+}

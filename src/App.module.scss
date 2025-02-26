@@ -1,0 +1,93 @@
+@use "variables";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.main {
+  width: 100%;
+  background-color: variables.$light-grey;
+  min-height: 100vh;
+
+  .header {
+    width: 100%;
+    background-color: variables.$green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 15vh;
+    padding: 1rem 0;
+
+    .app__title {
+      color: white;
+      font-size: 3rem;
+    }
+  }
+
+  .app__wrapper {
+    width: 100%;
+    padding: 4rem 10%;
+
+    .categories__wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      .btn {
+        background-color: variables.$very-light-green;
+        color: variables.$green;
+        font-size: 1.1rem;
+        padding: 0.6rem 1.1rem;
+        cursor: pointer;
+        outline: thick;
+        border: 0;
+        border-color: transparent;
+        border-radius: none;
+        margin: 0 0.1rem;
+
+        &:first-child {
+          border-radius: 0.4rem 0 0 0.4rem;
+          margin: 0;
+        }
+
+        &:last-child {
+          border-radius: 0 0.4rem 0.4rem 0;
+          margin: 0;
+        }
+
+        &:hover,
+        &:focus {
+          background-color: variables.$green;
+          color: white;
+        }
+      }
+
+      .btn__active {
+        background-color: variables.$green;
+        color: white;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: variables.$small-screen) {
+  .main {
+    .app__wrapper {
+      padding: 4rem 25%;
+      .categories__wrapper {
+        .btn {
+          padding: 0.8rem 4rem;
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}

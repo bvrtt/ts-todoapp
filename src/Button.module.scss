@@ -1,0 +1,24 @@
+@use "variables";
+
+.add__button {
+  background-color: variables.$light-green;
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.3rem;
+  outline: thick;
+  border: 0;
+  border-color: transparent;
+
+  &:hover,
+  &:focus {
+    background-color: #189546;
+  }
+}
+
+@media screen and (min-width: variables.$small-screen) {
+  .add__button {
+    padding: 0.8rem 2.5rem;
+  }
+}
