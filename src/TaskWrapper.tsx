@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Task from "./Task";
 import styles from "./TaskWrapper.module.scss";
 
@@ -6,9 +6,8 @@ import AddTaskModal from "./AddTaskModal";
 import EditTaskModal from "./EditTaskModal";
 import Button from "./Button";
 
-import { formatDate } from "./formatDate";
-
 import { Category } from "./App";
+import { useLocalStorage } from "./useLocalStorage";
 
 type TaskWrapperProps = {
   category: Category;
@@ -23,7 +22,8 @@ export type Task = {
 };
 
 function TaskWrapper({ category, sortByCategory }: TaskWrapperProps) {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const { tasks, setTasks, addTask, deleteTask, editTask, setCompletedTask } =
+    useLocalStorage([]);
   const [isModalActive, setIsModalActive] = useState(false);
   const [isCompletedActive, setIsCompletedActive] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -43,52 +43,15 @@ function TaskWrapper({ category, sortByCategory }: TaskWrapperProps) {
     }
   });
 
+  useEffect(() => {
+    const storageTasks = JSON.parse(localStorage.getItem("tasks") || '""');
+    if (Array.isArray(storageTasks)) {
+      setTasks(storageTasks);
+    }
+  }, [setTasks]);
+
   const shownTasks =
     category === "Pending" ? pendingTasks : sortedByCategoryTasks;
-
-  function addTask(task: Task) {
-    setTasks((prevTasks) => {
-      return [...prevTasks, task];
-    });
-  }
-
-  function editTask(id: string, label: string, deadline: string) {
-    const formatedDeadline = formatDate(deadline);
-    setTasks((prevTasks) => {
-      return prevTasks.map((task) => {
-        if (task.id === id) {
-          return {
-            ...task,
-            label,
-            deadline: formatedDeadline,
-          };
-        } else {
-          return task;
-        }
-      });
-    });
-  }
-
-  function setCompletedTask(id: string) {
-    setTasks((prevTasks) => {
-      return prevTasks.map((task) => {
-        if (task.id === id) {
-          return {
-            ...task,
-            completed: true,
-          };
-        } else {
-          return task;
-        }
-      });
-    });
-  }
-
-  function deleteTask(id: string) {
-    setTasks((prevTasks) => {
-      return prevTasks.filter((task) => task.id !== id);
-    });
-  }
 
   function findActiveTask(id: string) {
     const activeTask = tasks.find((task) => task.id === id);
